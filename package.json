@@ -1,0 +1,18 @@
+{
+  "name": "automacao-peticao-juridica",
+  "version": "1.0.0",
+  "description": "Automação para busca de processos no Datajud e geração de petição em PDF",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "fs-extra": "^11.1.1",
+    "handlebars": "^4.7.8",
+    "path": "^0.12.7",
+    "puppeteer": "^21.5.0"
+  },
+  "author": "Seu Nome",
+  "license": "ISC"
+}
