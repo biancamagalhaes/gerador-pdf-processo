@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Geração de petições — INSS / Servidor público</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <header class="header">
+        <h1>Petições — Datajud</h1>
+        <p class="subtitle">
+          Identifique o processo, escolha o modelo, complemente o que faltar e baixe PDF e Word.
+        </p>
+      </header>
+
+      <main class="main">
+        <form id="form-base" class="form wizard-form" novalidate>
+          <input type="hidden" name="templateId" id="template-id-input" value="" />
+
+          <nav class="stepper" aria-label="Etapas do assistente">
+            <ol class="stepper-list" role="list">
+              <li>
+                <button
+                  type="button"
+                  class="stepper-step"
+                  data-step-nav="1"
+                  id="stepper-1"
+                  aria-current="step"
+                >
+                  <span class="stepper-num">1</span>
+                  <span class="stepper-label">Identificar</span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="stepper-step" data-step-nav="2" id="stepper-2" disabled>
+                  <span class="stepper-num">2</span>
+                  <span class="stepper-label">Modelo</span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="stepper-step" data-step-nav="3" id="stepper-3" disabled>
+                  <span class="stepper-num">3</span>
+                  <span class="stepper-label">Complementar</span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="stepper-step" data-step-nav="4" id="stepper-4" disabled>
+                  <span class="stepper-num">4</span>
+                  <span class="stepper-label">Baixar</span>
+                </button>
+              </li>
+            </ol>
+          </nav>
+
+          <div id="consulta-status" class="status status-global" hidden></div>
+
+          <!-- Passo 1: identificar processo -->
+          <section
+            class="card wizard-step"
+            data-step="1"
+            id="wizard-step-1"
+            aria-labelledby="wizard-step-1-title"
+          >
+            <h2 id="wizard-step-1-title">Identificar o processo</h2>
+            <p class="hint wizard-step-intro">
+              Informe o nome e o número (CNJ) para consultar o Datajud. O modelo será escolhido no
+              próximo passo.
+            </p>
+            <label>
+              Nome do cliente
+              <input type="text" name="nomeCliente" required autocomplete="name" />
+            </label>
+            <label>
+              Gênero (concordância no texto da petição)
+              <select name="genero" required>
+                <option value="">Selecione…</option>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+              </select>
+            </label>
+            <label>
+              Número do processo (20 dígitos)
+              <input
+                type="text"
+                name="numeroProcesso"
+                required
+                inputmode="numeric"
+                placeholder="Somente números"
+              />
+            </label>
+            <div class="actions">
+              <button type="button" id="btn-consultar" class="btn primary">
+                Consultar processo
+              </button>
+            </div>
+          </section>
+
+          <!-- Passo 2: escolher modelo -->
+          <section
+            class="card wizard-step"
+            data-step="2"
+            id="wizard-step-2"
+            hidden
+            aria-labelledby="wizard-step-2-title"
+          >
+            <h2 id="wizard-step-2-title">Escolher modelo de documento</h2>
+            <p class="hint wizard-step-intro">
+              Confira os dados retornados pelo Datajud e selecione o modelo. O sistema destaca uma
+              sugestão quando possível.
+            </p>
+            <div id="processo-resumo" class="processo-resumo" hidden></div>
+            <p id="template-sugestao" class="hint compact template-sugestao" hidden></p>
+            <div id="template-cards" class="template-cards" role="listbox" aria-label="Modelos"></div>
+            <p id="template-hint" class="hint compact template-hint-below" hidden></p>
+            <div id="geracao-status-step2" class="status" hidden></div>
+            <div class="step-actions">
+              <button type="button" id="btn-voltar-step1" class="btn ghost">
+                Voltar
+              </button>
+              <button type="button" id="btn-usar-modelo" class="btn primary" disabled>
+                Usar este modelo
+              </button>
+            </div>
+          </section>
+
+          <!-- Passo 3: complementar dados -->
+          <section
+            class="card wizard-step"
+            data-step="3"
+            id="wizard-step-3"
+            hidden
+            aria-labelledby="wizard-step-3-title"
+          >
+            <h2 id="wizard-step-3-title">Complementar dados</h2>
+            <p class="hint wizard-step-intro">
+              Revise o que já foi preenchido automaticamente e informe o que ainda falta para este
+              modelo.
+            </p>
+            <div id="complement-fields" class="form complement-fields"></div>
+            <div class="step-actions">
+              <button type="button" id="btn-voltar-step2" class="btn ghost">Voltar</button>
+              <button type="button" id="btn-gerar" class="btn primary">Gerar PDF e Word</button>
+            </div>
+            <div id="geracao-status" class="status" hidden></div>
+          </section>
+
+          <!-- Passo 4: downloads -->
+          <section
+            class="card wizard-step"
+            data-step="4"
+            id="wizard-step-4"
+            hidden
+            aria-labelledby="wizard-step-4-title"
+          >
+            <h2 id="wizard-step-4-title">Documentos prontos</h2>
+            <p class="hint wizard-step-intro">
+              Os arquivos foram gerados. Use os botões abaixo para baixar.
+            </p>
+            <div id="download-success-banner" class="status ok download-banner" hidden></div>
+            <div id="downloads-panel" class="downloads downloads-panel-step4"></div>
+            <div class="actions">
+              <button type="button" id="btn-novo-documento" class="btn primary download-btn-cta">
+                Gerar outro documento
+              </button>
+            </div>
+          </section>
+        </form>
+      </main>
+
+      <footer class="footer">
+        <small>Uso interno do escritório. Chave Datajud via variável de ambiente no servidor.</small>
+      </footer>
+    </div>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

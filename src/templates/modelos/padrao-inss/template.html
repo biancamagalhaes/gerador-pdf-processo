@@ -19,14 +19,13 @@
             margin: 1cm 2.5cm 2.5cm 2.5cm; 
             font-size: 13.5px;
             color: #000;
-            line-height: 2.5;
+            line-height: 1.5;
         }
 
-        /* Logo recuada à esquerda (fora da linha do texto) */
         .header-logo { 
             text-align: left; 
             margin-bottom: 5px; 
-            margin-left: -35px; 
+            margin-left: 0; 
         }
         .header-logo img { 
             width: 270px; 
@@ -45,8 +44,9 @@
             margin-bottom: 25px; 
         }
 
-        .texto { text-align: justify; text-indent: 1cm; margin-bottom: 15px; }
+        .texto { text-align: justify; text-indent: 1cm; margin: 0 0 15px 0; }
         .negrito { font-weight: bold; }
+        .italico { font-style: italic; }
         .sublinhado { text-decoration: underline; }
         
         .bloco-final {
@@ -60,7 +60,7 @@
             width: 100%; 
             border-collapse: collapse; 
             margin-top: 20px;
-            line-height: 2;
+            line-height: 1.5;
         }
         .assinaturas td { 
             width: 45%; 
@@ -68,12 +68,16 @@
             vertical-align: top; 
             font-size: 15px; 
         }
+        .assinaturas td.assinaturas-spacer {
+            width: 40px;
+        }
 
+        /* Rodapé no fluxo (compatível com Word); largura total da página via margens negativas */
         .footer-image {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            margin-top: 24px;
+            margin-left: -2.5cm;
+            margin-right: -2.5cm;
+            width: calc(100% + 5cm);
             line-height: 0;
         }
         .footer-image img {
@@ -89,24 +93,24 @@
     </div>
 
     <div class="juizo">
-        EXCELENTÍSSIMO(A) SENHOR(A) DOUTOR(A) JUIZ(A) DA 3.ª VARA FEDERAL – JUS FEDERAL – FEIRA DE SANTANA/BA
+        {{juizo}}
     </div>
 
     <div class="processo">
         Processo n.º <span class="negrito">{{numero_processo}}</span>
     </div>
 
-    <div class="texto">
+    <p class="texto" style="text-align: justify; text-indent: 1cm; margin: 0 0 15px 0;">
         <span class="negrito">{{nome_cliente}}</span>, já {{qualificado_particula}} nos autos do processo de número à epígrafe, em que litiga contra {{litiga_contra_artigo}} <span class="negrito">{{polo_passivo}}</span> vem, respeitosamente, perante Vossa Excelência, informar e requerer o que segue.
-    </div>
+    </p>
 
-    <div class="texto">
+    <p class="texto" style="text-align: justify; text-indent: 1cm; margin: 0 0 15px 0;">
         Inicialmente, destaca-se que, da análise dos autos, verifica-se que a ação foi distribuída em <span class="negrito sublinhado">{{data_distribuicao}}</span>. <span class="negrito sublinhado">Ocorre que, até o presente momento não houve a designação de perícia médica, ato essencial para o julgamento da lide.</span>
-    </div>
+    </p>
 
-    <div class="texto">
+    <p class="texto" style="text-align: justify; text-indent: 1cm; margin: 0 0 15px 0;">
         Assim, à luz do princípio da economia processual e da celeridade, requer que seja dado o devido prosseguimento ao feito, com o consequente agendamento da <span class="negrito">PERÍCIA MÉDICA</span> com médico especialista em <span class="negrito">{{especialidade}}</span>. Oportunamente, pugna pela procedência de todos os pedidos, tais como os requeridos na peça exordial.
-    </div>
+    </p>
 
     <div class="bloco-final">
         <p>Nestes termos, pede e espera deferimento.</p>
@@ -119,7 +123,7 @@
                 <span class="negrito">EDDIE PARISH</span><br>
                 <span class="negrito">OAB/BA n.º 23.186</span>
             </td>
-            <td style="width: 10%;"></td>
+            <td class="assinaturas-spacer"></td>
             <td>
                 <span class="negrito">CARLOS ZENANDRO</span><br>
                 <span class="negrito">OAB/BA n.º 27.022</span>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Calibri', sans-serif;
+            margin: 1cm 2.5cm 2.5cm 2.5cm;
+            font-size: 13.5px;
+            color: #000;
+            line-height: 1.5;
+        }
+        .header-logo {
+            text-align: left;
+            margin-bottom: 5px;
+            margin-left: 0;
+        }
+        .header-logo img {
+            width: 270px;
+            height: auto;
+        }
+        .juizo {
+            font-weight: bold;
+            text-align: justify;
+            text-transform: uppercase;
+            margin-bottom: 80px;
+        }
+        .processo {
+            font-weight: normal;
+            margin-bottom: 25px;
+        }
+        .texto { text-align: justify; text-indent: 1cm; margin: 0 0 15px 0; }
+        .texto-conclusao { font-weight: bold; }
+        .negrito { font-weight: bold; }
+        .italico { font-style: italic; }
+        .sublinhado { text-decoration: underline; }
+        .bloco-final {
+            text-align: center;
+            margin-top: 45px;
+            margin-bottom: 45px;
+        }
+        .bloco-final p { margin: 2px 0; }
+        .assinaturas {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            line-height: 1.5;
+        }
+        .assinaturas td { 
+            width: 45%; 
+            text-align: center; 
+            vertical-align: top; 
+            font-size: 15px; 
+        }
+        .assinaturas td.assinaturas-spacer {
+            width: 40px;
+        }
+        .footer-image {
+            margin-top: 24px;
+            margin-left: -2.5cm;
+            margin-right: -2.5cm;
+            width: calc(100% + 5cm);
+            line-height: 0;
+        }
+        .footer-image img {
+            width: 100%;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-logo">
+        <img src="{{logo_base64}}" alt="Logo">
+    </div>
+
+    <div class="juizo">
+        {{juizo}}
+    </div>
+
+    <div class="processo">
+        Processo n.º <span class="negrito">{{numero_processo}}</span>
+    </div>
+
+    <p class="texto" style="text-align: justify; text-indent: 1cm; margin: 0 0 15px 0;">
+        <span class="negrito">{{nome_cliente}}</span>, já {{qualificado_particula}} nos autos do processo de número à epígrafe, em que litiga contra {{litiga_contra_artigo}} <span class="negrito">{{polo_passivo}}</span>, vem, respeitosamente, perante Vossa Excelência, <span class="negrito italico">REITERAR AS PETIÇÕES ANTERIORMENTE PROTOLADAS</span>, informar e requerer o que segue.
+    </p>
+
+    <p class="texto" style="text-align: justify; text-indent: 1cm; margin: 0 0 15px 0;">
+        A priori, cumpre ressaltar que da análise dos autos, é possível constatar que a ação fora distribuída em <span class="negrito sublinhado">{{data_distribuicao}}</span>. Em seguida, procedeu-se à juntada do laudo pericial médico aos autos em <span class="negrito sublinhado">{{data_laudo_pericia}}</span>. Ademais, a parte ré apresentou contestação em <span class="negrito sublinhado">{{data_contestacao}}</span>, devidamente replicada em <span class="negrito sublinhado">{{data_replica}}</span>.
+    </p>
+
+    <p class="texto" style="text-align: justify; text-indent: 1cm; margin: 0 0 15px 0;">
+        Diante disso, verifica-se que não há mais atos necessários ao desfecho da lide.
+    </p>
+
+    <p class="texto texto-conclusao" style="text-align: justify; text-indent: 1cm; margin: 0 0 15px 0;">
+        Assim, à luz do princípio da economia processual e da celeridade, reitera-se que seja dado o devido prosseguimento ao feito, com a consequente PROLAÇÃO DA SENTENÇA. Oportunamente, pugna pela procedência de todos os pedidos tais como requerido na peça exordial.
+    </p>
+
+    <div class="bloco-final">
+        <p>Nestes termos, pede e espera deferimento.</p>
+        <p>Salvador, Bahia, em {{data_hoje}}.</p>
+    </div>
+
+    <table class="assinaturas">
+        <tr>
+            <td>
+                <span class="negrito">EDDIE PARISH</span><br>
+                <span class="negrito">OAB/BA n.º 23.186</span>
+            </td>
+            <td class="assinaturas-spacer"></td>
+            <td>
+                <span class="negrito">CARLOS ZENANDRO</span><br>
+                <span class="negrito">OAB/BA n.º 27.022</span>
+            </td>
+        </tr>
+    </table>
+
+    <div class="footer-image">
+        <img src="{{footer_base64}}" alt="Rodapé">
+    </div>
+
+</body>
+</html>
